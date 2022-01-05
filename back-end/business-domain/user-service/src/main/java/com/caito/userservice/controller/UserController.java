@@ -3,6 +3,7 @@ package com.caito.userservice.controller;
 import com.caito.userservice.model.dto.UserRequest;
 import com.caito.userservice.model.dto.UserResponse;
 import com.caito.userservice.service.impl.UserService;
+import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<UserResponse> getById(@PathVariable Long id){
+    public ResponseEntity<UserResponse> getById(@PathVariable Long id) throws NotFoundException {
 
         return new ResponseEntity<UserResponse>(service.findById(id), HttpStatus.OK);
     }
@@ -37,7 +38,7 @@ public class UserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id){
+    public ResponseEntity<?> delete(@PathVariable Long id) throws NotFoundException {
 
         service.delete(id);
         return new ResponseEntity(HttpStatus.OK);
